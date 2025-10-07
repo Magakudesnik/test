@@ -1,1 +1,67 @@
-sdfsdf
+//+------------------------------------------------------------------+
+//|                                                        test1.mq5 |
+//|                                  Copyright 2025, MetaQuotes Ltd. |
+//|                                             https://www.mql5.com |
+//+------------------------------------------------------------------+
+//+------------------------------------------------------------------+
+//|                                                        test1.mq5 |
+//|                        Copyright 2025, MetaQuotes Software Corp. |
+//+------------------------------------------------------------------+
+#property copyright "Copyright 2025, MetaQuotes Ltd."
+#property version   "1.02"
+#property indicator_chart_window
+
+#import "UpdaterDLL.dll"
+int UpdateIndicator(string url, string targetPath);
+#import
+
+input string UpdateURL = "https://github.com/Magakudesnik/test/raw/main/test1.ex5";
+
+//+------------------------------------------------------------------+
+//| Custom indicator initialization function                         |
+//+------------------------------------------------------------------+
+int OnInit()
+  {
+   string indPath = TerminalInfoString(TERMINAL_DATA_PATH)
+                  + "\\MQL5\\Indicators\\test1.ex5";
+
+   Print("Проверка обновления...");
+   int res = UpdateIndicator(UpdateURL, indPath);
+
+   if (res == 0)
+     {
+      Alert("✅ Индикатор обновлён. Перезапустите терминал для применения изменений.");
+     }
+   else
+     {
+      Alert("❌ Ошибка обновления. Код: ", res);
+     }
+
+   return(INIT_SUCCEEDED);
+  }
+
+//+------------------------------------------------------------------+
+int OnCalculate(const int rates_total,
+                const int prev_calculated,
+                const datetime &time[],
+                const double &open[],
+                const double &high[],
+                const double &low[],
+                const double &close[],
+                const long &tick_volume[],
+                const long &volume[],
+                const int &spread[])
+  {
+   return(rates_total);
+  }
+
+//+------------------------------------------------------------------+
+//| Timer function                                                   |
+//+------------------------------------------------------------------+
+void OnTimer()
+  {
+//---
+   
+  }
+//+------------------------------------------------------------------+
+
